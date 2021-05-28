@@ -1,0 +1,36 @@
+{
+  "name": "smart_attendance",
+  "version": "1.0.0",
+  "description": "Smart attendance is project where students use RFID card to attend class",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node ./src/index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishoborabyose/Smart_attendance.git"
+  },
+  "author": "Ishoborabyose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ishoborabyose/Smart_attendance/issues"
+  },
+  "homepage": "https://github.com/ishoborabyose/Smart_attendance#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "sequelize-cli": "^6.2.0"
+  }
+}
