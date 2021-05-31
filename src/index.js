@@ -1,7 +1,8 @@
 import express from 'express';
 import { config } from 'dotenv';
 import bodyParser from 'body-parser'; 
-import db from './models';
+import db from './db/models'
+import router from './routes/lecture.route'
 
 
 
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
-
+app.use('/api', router)
 app.get('/', (req, res) =>{
     res.status(200).json({
         message: 'Welcome to Smart Attendance '
