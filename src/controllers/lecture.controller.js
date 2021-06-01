@@ -6,10 +6,6 @@ class lecturesController {
     static async register(req, res) {
         try {
             const { names, email, gender, faculty, department, school, college, contact, password } = req.body;
-            // const password = generator.generate({
-            //     length: 8,
-            //     numbers: true
-            // });
 
             const lectureExist = await Lecture.findOne({ where: { email } });
             if (lectureExist) {
