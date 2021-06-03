@@ -1,4 +1,4 @@
-# Smart_attendance
+# Smart_attendance 
 
 
  Getting started
@@ -24,7 +24,7 @@
 
 NOTE: remember to change the database names (use the ones you have or create new one)
 
-- run ``` npx migrateDb ``` (to migrate)
+- run ``` npx sequelize-cli db:migrate ``` (to migrate)
 
  From there the app should be running on port http://localhost:4000, the default port
 
