@@ -33,7 +33,22 @@ class cardController {
         }
     };
 
-    
+    static async getAll(req, res) {
+        try{
+            
+            const AllCards = await Card.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'Add card were retrieved successfull',
+                data: AllCards
+            });
+        } catch(error){
+            return res.status(500).json({
+                status: 500,
+                erro: error.message
+            })
+        }
+    }
 }
 
 export default cardController
