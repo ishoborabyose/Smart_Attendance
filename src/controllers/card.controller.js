@@ -39,7 +39,7 @@ class cardController {
             const AllCards = await Card.findAll();
             return res.status(200).json({
                 status: 200,
-                message: 'Add card were retrieved successfull',
+                message: 'Add cards were retrieved successfull',
                 data: AllCards
             });
         } catch(error){
