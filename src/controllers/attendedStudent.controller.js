@@ -41,6 +41,23 @@ class attendedStudentController {
             });
         }
     };
+
+    static async getAllStudents(req, res) {
+        try{
+            
+            const allAttendedStudents = await AttendedStudent.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All attended students were retrieved successfull',
+                data: allAttendedStudents
+            });
+        } catch(error){
+            return res.status(500).json({
+                status: 500,
+                erro: error.message
+            })
+        }
+    }
 }
 
 export default attendedStudentController;
