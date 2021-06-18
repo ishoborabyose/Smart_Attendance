@@ -79,6 +79,9 @@
                                 "department": {
                                     "type": "string"
                                 },
+                                "school": {
+                                    "type": "string"
+                                },
                                 "college": {
                                     "type": "string"
                                 },

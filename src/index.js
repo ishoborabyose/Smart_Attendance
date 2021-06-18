@@ -1,11 +1,12 @@
 import express from 'express';
 import { config } from 'dotenv';
 import bodyParser from 'body-parser'; 
-import db from './db/models'
-import router from './routes/index'
+import db from './db/models';
+import router from './routes/index';
 import swaggerUI from 'swagger-ui-express';
 import SwaggerDocument from '../swagger.json';
 import morgan from 'morgan';
+import cors from 'cors';
 
 
 
@@ -16,6 +17,8 @@ const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cors());
+
 app.use(morgan("dev"))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(SwaggerDocument));
 app.use(router)
