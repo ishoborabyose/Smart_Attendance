@@ -82,6 +82,8 @@ class lecturesController {
             });
         }
     }
+
+    
 }
 
 export default lecturesController

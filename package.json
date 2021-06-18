@@ -4,9 +4,13 @@
   "description": "Smart attendance is project where students use RFID card to attend class",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./src/index.js",
+    "build": "rm -rf build && babel -d ./build ./src -s",
+    "start": "npm run build && npm run migrate && npm run seed && node ./build/index.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "down": "node_modules/.bin/sequelize db:migrate:undo:all",
+    "migrate": "node_modules/.bin/sequelize db:migrate",
+    "seed": "node_modules/.bin/sequelize db:seed:all"
   },
   "repository": {
     "type": "git",
@@ -26,9 +30,11 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",

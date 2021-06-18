@@ -1,0 +1,602 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Smart attendance",
+        "description": "Smart attendance is a platform where students can tap their cards to a card reader and attend their classroom",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "basePath": "/",
+    "tags": [],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "parameters": [],
+                "tags": [
+                    "Smart Attendance"
+                ],
+                "summary": "Welcome to Smart Attendance",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Lecture"
+                ],
+                "description": "Create new lecture in system",
+                "parameters": [
+                    {
+                        "name": "lecture",
+                        "in": "body",
+                        "description": "Lecture that we want to create",
+                        "schema": {
+                            "required": [
+                                "names",
+                                "email",
+                                "gender",
+                                "faculty",
+                                "department",
+                                "school",
+                                "college",
+                                "contact",
+                                "password"
+                            ],
+                            "properties": {
+                                "names": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "gender": {
+                                    "type": "string"
+                                },
+                                "faculty": {
+                                    "type": "string"
+                                },
+                                "department": {
+                                    "type": "string"
+                                },
+                                "college": {
+                                    "type": "string"
+                                },
+                                "contact": {
+                                    "type": "integer"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "A new lecturer have been registered",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Lecture"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "this lecture lready exists",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Lecture"
+                ],
+                "description": "Login lecture in system",
+                "parameters": [
+                    {
+                        "name": "lecture",
+                        "in": "body",
+                        "description": "Lecture that we want to login",
+                        "schema": {
+                            "required": [
+                                "email",
+                                "password"
+                            ],
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged in",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Login"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "401": {
+                        "description": "Wrong login credentials",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register/student": {
+            "post": {
+                "tags": [
+                    "Student"
+                ],
+                "description": "Create new student in system",
+                "parameters": [
+                    {
+                        "name": "student",
+                        "in": "body",
+                        "description": "student that we want to create",
+                        "schema": {
+                            "required": [
+                                "cardId",
+                                "registrationN",
+                                "names",
+                                "gender",
+                                "faculty",
+                                "department",
+                                "school",
+                                "college",
+                                "year",
+                                "contact",
+                                "email"
+                            ],
+                            "properties": {
+                                "cardId": {
+                                    "type": "integer"
+                                },
+                                "registrationN": {
+                                    "type": "integer"
+                                },
+                                "names": {
+                                    "type": "string"
+                                },
+                                "gender": {
+                                    "type": "string"
+                                },
+                                "faculty": {
+                                    "type": "string"
+                                },
+                                "department": {
+                                    "type": "string"
+                                },
+                                "school": {
+                                    "type": "string"
+                                },
+                                "college": {
+                                    "type": "string"
+                                },
+                                "year": {
+                                    "type": "integer"
+                                },
+                                "contact": {
+                                    "type": "integer"
+                                },
+                                "email": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "A new student have been registered",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Student"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "this student already registerd",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/register/card": {
+            "post": {
+                "tags": [
+                    "Card"
+                ],
+                "description": "Create new card in system",
+                "parameters": [
+                    {
+                        "name": "card",
+                        "in": "body",
+                        "description": "card that we want to create",
+                        "schema": {
+                            "required": [
+                                "cardId"
+                            ],
+                            "properties": {
+                                "cardId": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "A new card have been created",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Cards"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "this card already taken",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cards": {
+            "get": {
+                "tags": [
+                    "Card"
+                ],
+                "description": "Get all cards by a students",
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all cards",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "$ref": "#/definitions/Cards"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Cards not found",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/attendance/student": {
+            "post": {
+                "tags": [
+                    "Attended student"
+                ],
+                "description": "Let a new student attend in system",
+                "parameters": [
+                    {
+                        "name": "Attended student",
+                        "in": "body",
+                        "description": "Attended student that we want to create",
+                        "schema": {
+                            "required": [
+                                "regNumber",
+                                "studentNames",
+                                "moduleName",
+                                "location",
+                                "lecturer"
+                            ],
+                            "properties": {
+                                "regNumber": {
+                                    "type": "integer"
+                                },
+                                "studentNames": {
+                                    "type": "string"
+                                },
+                                "moduleName": {
+                                    "type": "string"
+                                },
+                                "location": {
+                                    "type": "string"
+                                },
+                                "lecturer": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "A new student have been attended",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/AttendedStudents"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "this student already attended",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Lecture": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "names": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                },
+                "password": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "faculty": {
+                    "type": "string"
+                },
+                "department": {
+                    "type": "string"
+                },
+                "school": {
+                    "type": "string"
+                },
+                "college": {
+                    "type": "string"
+                },
+                "contact": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Student": {
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "cardId": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "registrationN": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "names": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "faculty": {
+                    "type": "string"
+                },
+                "department": {
+                    "type": "string"
+                },
+                "school": {
+                    "type": "string"
+                },
+                "college": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "integer"
+                },
+                "contact": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+        "Login": {
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "uniqueItems": true
+                }
+            }
+        },
+            "Cards": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "cardId": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    }
+                }
+            },
+        
+            "AttendedStudents": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "regNumber": {
+                        "type": "integer",
+                        "uniqueItems": true
+                    },
+                    "studentNames": {
+                        "type": "string"
+                    },
+                    "moduleName": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "type": "string"
+                    },
+                    "lecturer": {
+                        "type": "string"
+                    }
+                }
+            },
+        
+        "Error": {
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
