@@ -7,7 +7,7 @@ import checkLogin from '../helpers/checkLogin';
 
 const router = express.Router();
 
-router.post('/attendance/student',attendedStudentValidation, attendedStudentController.register);
+router.post('/attendance/student', checkLogin, attendedStudentValidation, attendedStudentController.register);
 router.get('/attendance/all', checkLogin, attendedStudentController.getAllStudents);
 
 export default router;
