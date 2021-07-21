@@ -73,7 +73,7 @@ class lecturesController {
             return res.status(200).json({
                 status: 200,
                 message:'you have been logged in successfully',
-                token
+                data: { token }
             })
         } catch(error){
             return res.status(500).json({
