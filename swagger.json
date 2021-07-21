@@ -401,6 +401,12 @@
                 "description": "Let a new student attend in system",
                 "parameters": [
                     {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    },
+                    {
                         "name": "Attended student",
                         "in": "body",
                         "description": "Attended student that we want to create",
@@ -460,6 +466,123 @@
                     },
                     "409": {
                         "description": "this student already attended",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/attendance/all": {
+            "get": {
+                "tags": [
+                    "Attended students"
+                ],
+                "description": "Get all attended students",
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all attended students",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "$ref": "#/definitions/AttendedStudents"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Attended students not found",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/access": {
+            "post": {
+                "tags": [
+                    "Access"
+                ],
+                "description": "Let the lecture access a room",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    },
+                    {
+                        "name": "Access",
+                        "in": "body",
+                        "description": "You successfully access room",
+                        "schema": {
+                            "required": [
+                                "classRoom",
+                                "lesson"
+                            ],
+                            "properties": {
+                                "classRoom": {
+                                    "type": "string"
+                                },
+                                "lesson": {
+                                    "type": "string"
+                                }
+                               
+                            }
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "You successfully access room",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Access"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or invalid value",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "409": {
+                        "description": "This classRoom is occupied",
                         "schema": {
                             "$ref": "#/definitions/Error"
                         }
@@ -590,6 +713,19 @@
                     },
                     "lecturer": {
                         "type": "string"
+                    }
+                }
+            },
+            "Access": {
+                "properties":{
+                    "id":{
+                        "type":"integer"
+                    },
+                    "classRoom":{
+                        "type":"string"
+                    },
+                    "lesson":{
+                        "type":"string"
                     }
                 }
             },
