@@ -4,16 +4,10 @@ class AccessController{
 
     static async access(req, res){
         try {
+           
             const { classRoom, lesson } = req.body;
-            const accessExist = await Access.findOne({where: { classRoom }})
-            if(accessExist){
-                return res.status(409).json({
-                    status: 409,
-                    error: 'This classroom is occupied'
-                })
-            }
-
             const newAccess = {
+                
                 classRoom,
                 lesson
             }
@@ -42,6 +36,42 @@ class AccessController{
                 message: 'All access were retrieved successful',
                 data: allAccess
             })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
+    }
+
+    static async update(req, res) {
+        try {
+            
+            const { body: { classRoom, lesson }} = req;
+            const found = await Access.findOne({where:{ classRoom }});
+            if(found){
+         const updatedAccess =  await Access.update({
+                    classRoom,
+                    lesson
+                },{
+                    where: {
+                       classRoom
+                    },
+                    returning: true,
+                    plain: true
+                });
+
+                return res.status(200).json({
+                    status:200,
+                    message: 'access was updated successfully',
+                    updatedAccess
+                });
+            }
+            return res.status(404).json({
+                status: 404,
+                error: 'access not found'
+            })
+
         } catch (error) {
             return res.status(500).json({
                 status: 500,

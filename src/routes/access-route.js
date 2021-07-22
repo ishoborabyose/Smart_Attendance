@@ -7,5 +7,6 @@ const accessRouter = express.Router();
 
 accessRouter.post('/access', checkLogin, validation, AccessController.access)
 accessRouter.get('/access/all', checkLogin, AccessController.getAll)
+accessRouter.patch('/access/update', checkLogin, validation, AccessController.update)
 
 export default accessRouter;
