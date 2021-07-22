@@ -32,6 +32,22 @@ class AccessController{
                 error: error.message
             })
         }
+    };
+
+    static async getAll(req, res) {
+        try {
+            const allAccess = await Access.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All access were retrieved successful',
+                data: allAccess
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
     }
 
     
