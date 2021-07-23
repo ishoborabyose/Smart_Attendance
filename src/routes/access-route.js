@@ -8,5 +8,6 @@ const accessRouter = express.Router();
 accessRouter.post('/access', checkLogin, validation, AccessController.access)
 accessRouter.get('/access/all', checkLogin, AccessController.getAll)
 accessRouter.patch('/access/update', checkLogin, validation, AccessController.update)
+accessRouter.delete('/access/delete', checkLogin, AccessController.delete)
 
 export default accessRouter;
