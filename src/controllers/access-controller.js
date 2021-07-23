@@ -46,16 +46,16 @@ class AccessController{
 
     static async update(req, res) {
         try {
-            
+            const { id } = req.query;
             const { body: { classRoom, lesson }} = req;
-            const found = await Access.findOne({where:{ classRoom }});
+            const found = await Access.findOne({where:{ id}});
             if(found){
          const updatedAccess =  await Access.update({
                     classRoom,
                     lesson
                 },{
                     where: {
-                       classRoom
+                       id
                     },
                     returning: true,
                     plain: true
@@ -80,7 +80,35 @@ class AccessController{
         }
     }
 
-    
+    static async delete(req, res) {
+        try {
+            const { query: {id} } = req;
+            const found = await Access.findOne({
+                where: {
+                    id,
+                }
+            });
+            if(found){
+                await Access.destroy({
+                    where: {
+                        id
+                    }
+                }).then(() => res.status(200).json({
+                    status: 200,
+                    message: 'access have been deleted'
+                }))
+            }
+            return res.status(404).json({
+                status: 404,
+                error: 'access not found'
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status:500,
+                error: error.message
+            })
+        }
+    }
 }
 
 export default AccessController
