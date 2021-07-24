@@ -401,7 +401,7 @@
                 "description": "Let a new student attend in system",
                 "parameters": [
                     {
-                        "name": "Authorization",
+                        "name": "x-access-token",
                         "in": "header",
                         "description": "The Lecture token",
                         "required": true
@@ -476,7 +476,7 @@
         "/api/attendance/all": {
             "get": {
                 "tags": [
-                    "Attended students"
+                    "Attended student"
                 ],
                 "description": "Get all attended students",
                 "parameters": [
@@ -529,7 +529,7 @@
                 "description": "Let the lecture access a room",
                 "parameters": [
                     {
-                        "name": "Authorization",
+                        "name": "x-access-token",
                         "in": "header",
                         "description": "The Lecture token",
                         "required": true
@@ -589,7 +589,202 @@
                     }
                 }
             }
+        },
+
+        "/api/access/all": {
+            "get": {
+                "tags": [
+                    "Access"
+                ],
+                "description": "Get all accesses",
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all accesses",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "$ref": "#/definitions/Access"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Access not found",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/api/access/update": {
+            "patch": {
+                "tags": [
+                    "Access"
+                ],
+                "summary": "Update an access",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "x-access-token",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "An identifier of access",
+                        "required": true,
+                        "type": "integer"
+                    },
+                   
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Access"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access updated successfully",
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Access"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Lecture is not authenticated",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Fobidden to make changes",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "404": {
+                        "description": "Access not found",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+                
+            }
+        },
+
+        "/api/access/delete":{
+            "delete": {
+                "tags": [
+                    "Access"
+                ],
+                "description": "Delete an access",
+                "parameters": [
+                    {
+                         "name": "x-access-token",
+                        "in": "header",
+                        "description": "The Lecture token",
+                        "required": true
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "An identifier of access",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully deleted the access",
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "integer"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Lecture is not authenticated",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Access not found",
+                        "schema": {
+                            "properties": {
+                                "error": {
+                                    "type": "string"
+                                },
+                                "me": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+              }
         }
+        
     },
     "definitions": {
         "Lecture": {
