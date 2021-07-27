@@ -3,7 +3,8 @@ import Joi from 'joi';
 const validation = (req, res, next) =>{
     const accessSchema = Joi.object({
         classRoom: Joi.string().required(),
-        lesson: Joi.string().required()
+        moduleName: Joi.string().required(),
+        device: Joi.number().required()
     });
 
     const schema = accessSchema.validate(req.body);
