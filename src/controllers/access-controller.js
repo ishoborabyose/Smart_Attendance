@@ -1,18 +1,22 @@
-import { Access } from '../db/models';
+import { Accesses } from '../db/models';
+import { Lecture } from '../db/models';
+import { decode } from '../helpers/jwtoken';
+
+
 
 class AccessController{
 
     static async access(req, res){
         try {
-           
-            const { classRoom, lesson } = req.body;
+            const { body: {classRoom, moduleName, device}, lecture: {email}} = req;
             const newAccess = {
-                
+                moduleName,
                 classRoom,
-                lesson
+                device,
+                createdby: email
             }
 
-            const accessNow = await Access.create(newAccess)
+            const accessNow = await Accesses.create(newAccess)
 
             return res.status(201).json({
                 status: 201,
@@ -30,7 +34,7 @@ class AccessController{
 
     static async getAll(req, res) {
         try {
-            const allAccess = await Access.findAll();
+            const allAccess = await Accesses.findAll();
             return res.status(200).json({
                 status: 200,
                 message: 'All access were retrieved successful',
@@ -47,12 +51,13 @@ class AccessController{
     static async update(req, res) {
         try {
             const { id } = req.query;
-            const { body: { classRoom, lesson }} = req;
-            const found = await Access.findOne({where:{ id}});
+            const { body: { classRoom, moduleName, device }} = req;
+            const found = await Accesses.findOne({where:{ id }});
             if(found){
-         const updatedAccess =  await Access.update({
-                    classRoom,
-                    lesson
+         const updatedAccess =  await Accesses.update({
+                classRoom,
+                 moduleName,
+                 device
                 },{
                     where: {
                        id
@@ -64,7 +69,7 @@ class AccessController{
                 return res.status(200).json({
                     status:200,
                     message: 'access was updated successfully',
-                    updatedAccess
+                   data: updatedAccess
                 });
             }
             return res.status(404).json({
@@ -83,13 +88,13 @@ class AccessController{
     static async delete(req, res) {
         try {
             const { query: {id} } = req;
-            const found = await Access.findOne({
+            const found = await Accesses.findOne({
                 where: {
                     id,
                 }
             });
             if(found){
-                await Access.destroy({
+                await Accesses.destroy({
                     where: {
                         id
                     }

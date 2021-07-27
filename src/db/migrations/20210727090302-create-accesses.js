@@ -8,11 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      moduleName: {
+        type: Sequelize.STRING
+      },
       classRoom: {
         type: Sequelize.STRING
       },
-      lesson: {
+      createdby: {
         type: Sequelize.STRING
+      },
+      device: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
