@@ -31,7 +31,23 @@ class Departments{
                 error
             })
         }
-    }
+    };
+
+    static async allDepartment(req, res) {
+        try {
+            const allDepartments = await Department.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All departments were retrieved successful',
+                data: allDepartments
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
+    };
 }
 
 export default Departments
