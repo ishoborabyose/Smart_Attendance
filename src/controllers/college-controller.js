@@ -31,7 +31,7 @@ class Colleges {
                 error
             })
         }
-    }
+    };
 
     static async allCollege(req, res) {
         try {
@@ -46,6 +46,39 @@ class Colleges {
                 status: 500,
                 error: error.message
             });
+        }
+    };
+
+
+    static async deleteCollege(req, res) {
+        try {
+            const { query: {collegeId} } = req;
+            const found = await College.findOne({
+                where: {
+                    collegeId
+                }
+            });
+            if(found){
+                await College.destroy({
+                    where: {
+                        collegeId
+                    }
+                }).then(() => res.status(200).json({
+                    status: 200,
+                    message: 'college have been deleted'
+                }))
+            }
+         if(!found){
+             return res.status(404).json({
+                status: 404,
+                error: 'college not found'
+            })
+        };
+        } catch (error) {
+            return res.status(500).json({
+                status:500,
+                error: error.message
+            })
         }
     }
 
