@@ -32,6 +32,23 @@ class Colleges {
             })
         }
     }
+
+    static async allCollege(req, res) {
+        try {
+            const allcolleges = await College.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All colleges were retrieved successful',
+                data: allcolleges
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
+    }
+
 }
 
 export default Colleges
