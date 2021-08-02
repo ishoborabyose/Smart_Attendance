@@ -28,11 +28,28 @@ class Schools{
         } catch (error) {
             return res.status(500).json({
                 status:500,
-                error: 'something went wrong',
-                error
+                error: error.message
+                
             })
         }
-    }
+    };
+
+
+    static async allSchool(req, res) {
+        try {
+            const allSchools = await School.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All school were retrieved successful',
+                data: allSchools
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
+    };
     
 
 }
