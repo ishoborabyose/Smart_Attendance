@@ -51,6 +51,37 @@ class Schools{
         }
     };
     
+    static async deleteSchool(req, res) {
+        try {
+            const { query: {schoolId} } = req;
+            const found = await School.findOne({
+                where: {
+                    schoolId
+                }
+            });
+            if(found){
+                await School.destroy({
+                    where: {
+                        schoolId
+                    }
+                }).then(() => res.status(200).json({
+                    status: 200,
+                    message: 'School have been deleted'
+                }))
+            }
+         if(!found){
+             return res.status(404).json({
+                status: 404,
+                error: 'School not found'
+            })
+        };
+        } catch (error) {
+            return res.status(500).json({
+                status:500,
+                error: error.message
+            })
+        }
+    }
 
 }
 
