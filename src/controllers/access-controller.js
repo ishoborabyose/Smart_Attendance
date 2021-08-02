@@ -72,10 +72,12 @@ class AccessController{
                    data: updatedAccess
                 });
             }
+            if(!found){
             return res.status(404).json({
                 status: 404,
                 error: 'access not found'
             })
+        };
 
         } catch (error) {
             return res.status(500).json({
@@ -103,10 +105,13 @@ class AccessController{
                     message: 'access have been deleted'
                 }))
             }
+            if(!found){
+
             return res.status(404).json({
                 status: 404,
                 error: 'access not found'
             })
+        };
         } catch (error) {
             return res.status(500).json({
                 status:500,

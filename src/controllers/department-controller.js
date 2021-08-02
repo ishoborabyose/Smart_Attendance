@@ -48,6 +48,39 @@ class Departments{
             });
         }
     };
+
+
+    static async deleteDepartment(req, res) {
+        try {
+            const { query: {departmentId} } = req;
+            const found = await Department.findOne({
+                where: {
+                    departmentId
+                }
+            });
+            if(found){
+                await Department.destroy({
+                    where: {
+                        departmentId
+                    }
+                }).then(() => res.status(200).json({
+                    status: 200,
+                    message: 'Department have been deleted'
+                }))
+            }
+         if(!found){
+             return res.status(404).json({
+                status: 404,
+                error: 'Department not found'
+            })
+        };
+        } catch (error) {
+            return res.status(500).json({
+                status:500,
+                error: error.message
+            })
+        }
+    }
 }
 
 export default Departments
