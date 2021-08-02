@@ -46,7 +46,7 @@ class AccessController{
                 error: error.message
             });
         }
-    }
+    };
 
     static async update(req, res) {
         try {

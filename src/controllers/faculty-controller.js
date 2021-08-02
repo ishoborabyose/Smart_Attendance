@@ -31,8 +31,23 @@ class Faculties{
                 error
             })
         }
-    }
-    
+    };
+
+    static async allFaculty(req, res) {
+        try {
+            const allFaculties = await Faculty.findAll();
+            return res.status(200).json({
+                status: 200,
+                message: 'All faculties were retrieved successful',
+                data: allFaculties
+            })
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                error: error.message
+            });
+        }
+    };
 
 }
 
