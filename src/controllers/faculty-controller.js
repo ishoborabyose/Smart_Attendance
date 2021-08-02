@@ -27,8 +27,8 @@ class Faculties{
         } catch (error) {
             return res.status(500).json({
                 status:500,
-                error: 'something went wrong',
-                error
+                error: error.message
+                
             })
         }
     };
@@ -48,6 +48,39 @@ class Faculties{
             });
         }
     };
+
+
+    static async deleteFaculty(req, res) {
+        try {
+            const { query: {facultyId} } = req;
+            const found = await Faculty.findOne({
+                where: {
+                    facultyId
+                }
+            });
+            if(found){
+                await Faculty.destroy({
+                    where: {
+                        facultyId
+                    }
+                }).then(() => res.status(200).json({
+                    status: 200,
+                    message: 'Faculty have been deleted'
+                }))
+            }
+         if(!found){
+             return res.status(404).json({
+                status: 404,
+                error: 'Faculty not found'
+            })
+        };
+        } catch (error) {
+            return res.status(500).json({
+                status:500,
+                error: error.message
+            })
+        }
+    }
 
 }
 
