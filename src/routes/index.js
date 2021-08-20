@@ -9,6 +9,7 @@ import collegeRouter from './college.route';
 import departmentRouter from './department-route';
 import facultyRouter from './faculty-route';
 import schoolRouter from './school-route'; 
+import moduleRouter from './module-route';
 
 
 const router = Router();
@@ -23,4 +24,5 @@ router.use('/api/', collegeRouter);
 router.use('/api/', departmentRouter);
 router.use('/api/', facultyRouter);
 router.use('/api/', schoolRouter)
+router.use('/api/', moduleRouter);
 export default router;
